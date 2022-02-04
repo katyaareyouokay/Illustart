@@ -57,7 +57,7 @@ public class MenuManager : MonoBehaviour
     {
         Character1.SetActive(true);
         Character2.SetActive(false);
-        GameObject.Find("__app").GetComponent<TouchInput>().ActiveObject = Character1;
+        GameObject.Find("__app").GetComponent<TouchInput>().SetActiveObject(Character1);
     }
 
     public void ShowCharacter2()

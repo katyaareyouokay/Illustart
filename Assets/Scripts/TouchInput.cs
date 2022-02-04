@@ -5,7 +5,7 @@ using DigitalRubyShared;
 
 public class TouchInput : MonoBehaviour
 {
-    public GameObject ActiveObject;
+    public GameObject activeObject;
     private TapGestureRecognizer tapGesture;
     private SwipeGestureRecognizer swipeGesture;
     private ScaleGestureRecognizer scaleGesture;
@@ -19,6 +19,11 @@ public class TouchInput : MonoBehaviour
 
     }
 
+    public void SetActiveObject(GameObject newActiveObject)
+    {
+        activeObject = newActiveObject;
+    }    
+
     private void TapGestureCallback(GestureRecognizer gesture)
     {
         if (gesture.State == GestureRecognizerState.Ended)
@@ -29,11 +34,11 @@ public class TouchInput : MonoBehaviour
 
     IEnumerator RotateActiveObject(float angle)
     {
-        float initAngle = ActiveObject.transform.rotation.eulerAngles.y;
+        float initAngle = activeObject.transform.rotation.eulerAngles.y;
         for (float i = 0.0f; i <= 1.0f; i += Time.deltaTime / 0.3f)
         {
             float newAngle = Mathf.Lerp(initAngle, initAngle + angle, i);
-            ActiveObject.transform.rotation = Quaternion.AngleAxis(newAngle, Vector3.up);
+            activeObject.transform.rotation = Quaternion.AngleAxis(newAngle, Vector3.up);
             yield return null;
         }
     }
@@ -67,8 +72,8 @@ public class TouchInput : MonoBehaviour
     {
         if (gesture.State == GestureRecognizerState.Executing)
         {
-            float newScale = Mathf.Clamp(ActiveObject.transform.localScale.x * scaleGesture.ScaleMultiplier, 0.3f, 3.0f);
-            ActiveObject.transform.localScale = new Vector3(newScale, newScale, newScale);
+            float newScale = Mathf.Clamp(activeObject.transform.localScale.x * scaleGesture.ScaleMultiplier, 0.3f, 3.0f);
+            activeObject.transform.localScale = new Vector3(newScale, newScale, newScale);
         }
     }
 
